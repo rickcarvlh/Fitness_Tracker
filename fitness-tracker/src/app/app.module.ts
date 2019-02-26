@@ -16,6 +16,7 @@ import { PastTrainingsComponent } from './training/past-trainings/past-trainings
 import { WelcomeComponent } from './welcome/welcome.component';
 import { AppRoutingModule } from './training/app-routing.module';
 import {FlexLayoutModule} from '@angular/flex-layout';
+import {MatDatepickerModule} from "@angular/material";
 
 
 @NgModule({
@@ -35,7 +36,8 @@ import {FlexLayoutModule} from '@angular/flex-layout';
     MaterialModule,
     AppRoutingModule,
     FlexLayoutModule,
-    FormsModule
+    FormsModule,
+    MatDatepickerModule
   ],
   providers: [],
   bootstrap: [AppComponent]
