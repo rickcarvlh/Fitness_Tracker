@@ -1,2 +1,11 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<router-outlet></router-outlet>
+<mat-sidenav-container>
+  <mat-sidenav #sidenav role="navigation">
+    <p>Sidenav Content</p>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <button (click)="sidenav.toggle()">Show sidenav</button>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+
