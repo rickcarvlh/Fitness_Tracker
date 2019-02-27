@@ -17,6 +17,8 @@ import { WelcomeComponent } from './welcome/welcome.component';
 import { AppRoutingModule } from './training/app-routing.module';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {MatDatepickerModule} from "@angular/material";
+import { HeaderComponent } from './navigation/header/header.component';
+import { SidenavListComponent } from './navigation/sidenav-list/sidenav-list.component';
 
 
 @NgModule({
@@ -28,7 +30,9 @@ import {MatDatepickerModule} from "@angular/material";
     CurrentTrainingComponent,
     NewTrainingComponent,
     PastTrainingsComponent,
-    WelcomeComponent
+    WelcomeComponent,
+    HeaderComponent,
+    SidenavListComponent
   ],
   imports: [
     BrowserModule,
