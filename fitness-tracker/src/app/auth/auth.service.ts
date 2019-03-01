@@ -53,6 +53,7 @@ export class AuthService {
 
   // utility function
   isAuth() {
+    // return if the user is set or not
     return this.user != null;
 
   }

@@ -21,6 +21,7 @@ import { HeaderComponent } from './navigation/header/header.component';
 import { SidenavListComponent } from './navigation/sidenav-list/sidenav-list.component';
 import {StopTrainingComponent} from "./training/current-training/stop-training..component";
 import {AuthService} from "./auth/auth.service";
+import {AuthGuard} from "./auth/auth.guard";
 
 
 @NgModule({
