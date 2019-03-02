@@ -10,7 +10,7 @@ import {Subscription} from "rxjs";
 export class HeaderComponent implements OnInit, OnDestroy {
   //  to be listen from the outside
   @Output() sidenavToggle = new EventEmitter<void>();
-  isAuth: boolean;
+  isAuth =  false;
   authSubscription: Subscription;
 
   constructor(private authService: AuthService) {
@@ -25,6 +25,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
   onToggleSidenav() {
     // emitting an event
     this.sidenavToggle.emit();
+  }
+
+  onLogout() {
+    this.authService.logout()
   }
 
   ngOnDestroy(): void {
