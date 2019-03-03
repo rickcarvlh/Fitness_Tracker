@@ -8,7 +8,7 @@ import {
   MatNativeDateModule, MatProgressSpinnerModule, MatSelectModule, MatSidenavModule,
   MatTabsModule,
   MatToolbarModule,
-  MatTableModule, MatSort, MatSortModule,
+  MatTableModule, MatSortModule,
 
 
 } from '@angular/material';
