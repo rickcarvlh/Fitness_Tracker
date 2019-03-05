@@ -8,9 +8,10 @@ import {AngularFirestore} from '@angular/fire/firestore';
 export class TrainingService {
   exerciseChange = new Subject<Exercise>();
   exercisesChanged = new Subject<Exercise[]>();
+  finishedExercisesChanged = new Subject<Exercise[]>();
   private availableExercise: Exercise[] = [];
   private runningExercise: Exercise;
-  private exercises: Exercise[] = [];
+  // private finishedexercises: Exercise[] = [];
 
   constructor(private db: AngularFirestore){}
 
@@ -56,8 +57,11 @@ export class TrainingService {
     return {...this.runningExercise};
   }
 
-  getCompletedOrCancelledExercises() {
-    return this.exercises.slice();
+  fetchCompletedOrCancelledExercises() {
+    this.db.collection('finishedExercises').valueChanges().subscribe((exercises: Exercise[]) => {
+      // this.finishedexercises = exercises;
+      this.finishedExercisesChanged.next(exercises);
+    });
   }
 
   private addDataToDataBase(exercise: Exercise) {
