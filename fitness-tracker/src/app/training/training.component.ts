@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {Subscription} from "rxjs";
-import {TrainingService} from "./training.service";
+import {Subscription} from 'rxjs';
+import {TrainingService} from './training.service';
 
 
 @Component({
