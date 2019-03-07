@@ -11,7 +11,7 @@ import {AngularFireAuth} from '@angular/fire/auth';
 @Injectable()
 export class AuthService {
   // calling the interface
-  private user: User;
+  private isAuthenticated = false;
 
   //constructor can be added now
   constructor(private router: Router, private  afAuth: AngularFireAuth) {
@@ -50,25 +50,21 @@ export class AuthService {
   }
 
   logout() {
-    this.user = null;
     this.authChange.next(false);
     this.router.navigate(['/login']);
+    this.isAuthenticated = false;
   }
 
-  // get access to user it's private
-  getUser() {
-    // returns a copy of the Object user
-    return {...this.user};
-  }
 
   // utility function
   isAuth() {
-    // return if the user is set or not
-    return this.user != null;
+
+    return this.isAuthenticated;
 
   }
 
   private authSucessufully() {
+    this.isAuthenticated = true;
     this.authChange.next(true);
     this.router.navigate(['/training']);
 
