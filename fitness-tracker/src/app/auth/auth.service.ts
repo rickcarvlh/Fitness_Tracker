@@ -22,18 +22,30 @@ export class AuthService {
   // either true or false
   authChange = new Subject<boolean>();
 
+  initAuthListner() {
+    this.afAuth.authState.subscribe(user => {
+      if (user) {
+        this.isAuthenticated = true;
+        this.authChange.next(true);
+        this.router.navigate(['/training']);
+      }else{
+        this.trainingService.cancelSubscriptions();
+        this.authChange.next(false);
+        this.router.navigate(['/login']);
+        this.isAuthenticated = false;
+      }
+    });
+  }
+
   registerUser(authData: AuthData) {
     this.afAuth.auth.createUserAndRetrieveDataWithEmailAndPassword(
       authData.email,
       authData.password).then(result => {
       console.log(result);
-      this.authSucessufully();
     })
       .catch(error => {
         console.log(error);
       });
-    //  every time i register a user i want to emit a event
-    this.authSucessufully();
   }
 
   login(authData: AuthData) {
@@ -41,20 +53,16 @@ export class AuthService {
       authData.email,
       authData.password).then(result => {
       console.log(result);
-      this.authSucessufully();
     })
       .catch(error => {
         console.log(error);
       });
-    this.authSucessufully();
+
 
   }
 
   logout() {
-    this.trainingService.cancelSubscriptions();
-    this.authChange.next(false);
-    this.router.navigate(['/login']);
-    this.isAuthenticated = false;
+    this.afAuth.auth.signOut();
   }
 
 
@@ -65,10 +73,5 @@ export class AuthService {
 
   }
 
-  private authSucessufully() {
-    this.isAuthenticated = true;
-    this.authChange.next(true);
-    this.router.navigate(['/training']);
 
-  }
 }
