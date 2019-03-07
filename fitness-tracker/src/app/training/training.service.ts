@@ -1,5 +1,5 @@
 import {Exercise} from './exercise.model';
-import {Subject} from 'rxjs';
+import {Subject, Subscription} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {Injectable} from '@angular/core';
 import {AngularFirestore} from '@angular/fire/firestore';
@@ -12,11 +12,13 @@ export class TrainingService {
   private availableExercise: Exercise[] = [];
   private runningExercise: Exercise;
   // private finishedexercises: Exercise[] = [];
+  private fbSubs: Subscription[] = [];
 
-  constructor(private db: AngularFirestore){}
+  constructor(private db: AngularFirestore) {
+  }
 
   fetchAvailableExercise() {
-    this.db
+    this.fbSubs.push(this.db
       .collection<Exercise>('availableExercises')
       .snapshotChanges()
       .pipe(map(docArray => {
@@ -30,7 +32,7 @@ export class TrainingService {
       .subscribe((exercises: Exercise[]) => {
         this.availableExercise = exercises;
         this.exercisesChanged.next([...this.availableExercise]);
-      });
+      }));
   }
 
   startExercise(selectedId: string) {
@@ -46,9 +48,11 @@ export class TrainingService {
   }
 
   cancelExercise(progress: number) {
-    this.addDataToDataBase({...this.runningExercise,
+    this.addDataToDataBase({
+      ...this.runningExercise,
       duration: this.runningExercise.duration * (progress / 100), calories: this.runningExercise.calories * (progress / 100),
-       date: new Date(), state: 'cancelled'});
+      date: new Date(), state: 'cancelled'
+    });
     this.runningExercise = null;
     this.exerciseChange.next(null);
   }
@@ -58,10 +62,14 @@ export class TrainingService {
   }
 
   fetchCompletedOrCancelledExercises() {
-    this.db.collection('finishedExercises').valueChanges().subscribe((exercises: Exercise[]) => {
+   this.fbSubs.push(this.db.collection('finishedExercises').valueChanges().subscribe((exercises: Exercise[]) => {
       // this.finishedexercises = exercises;
       this.finishedExercisesChanged.next(exercises);
-    });
+    }));
+  }
+
+  cancelSubscriptions() {
+    this.fbSubs.forEach(sub => sub.unsubscribe());
   }
 
   private addDataToDataBase(exercise: Exercise) {
