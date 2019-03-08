@@ -1,12 +1,12 @@
 // FAKE USER LOGIN SERVICE
 // access the user only from the inside
-import {User} from './user.model';
 import {AuthData} from './auth-data.model';
 import {Subject} from 'rxjs';
 import {Injectable} from '@angular/core';
 import {Router} from '@angular/router';
 import {AngularFireAuth} from '@angular/fire/auth';
 import {TrainingService} from '../training/training.service';
+import {MatSnackBar} from '@angular/material';
 
 // injecting services into services
 @Injectable()
@@ -15,9 +15,8 @@ export class AuthService {
   private isAuthenticated = false;
 
   //constructor can be added now
-  constructor(private router: Router, private  afAuth: AngularFireAuth, private trainingService: TrainingService) {
-
-  }
+  constructor(private router: Router, private  afAuth: AngularFireAuth,
+              private trainingService: TrainingService, private snackBar: MatSnackBar) {}
 
   // either true or false
   authChange = new Subject<boolean>();
@@ -44,7 +43,9 @@ export class AuthService {
       console.log(result);
     })
       .catch(error => {
-        console.log(error);
+        this.snackBar.open(error.message, null,{
+          duration: 3000
+        });
       });
   }
 
@@ -55,7 +56,9 @@ export class AuthService {
       console.log(result);
     })
       .catch(error => {
-        console.log(error);
+        this.snackBar.open(error.message, null, {
+          duration: 3000
+        });
       });
 
 
