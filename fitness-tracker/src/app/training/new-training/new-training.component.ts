@@ -13,6 +13,7 @@ import {Exercise} from '../exercise.model';
 export class NewTrainingComponent implements OnInit, OnDestroy {
   exercises: Exercise[];
   exerciseSubscription: Subscription;
+  isLoading = true;
 
 
   constructor(private trainingService: TrainingService) {
@@ -20,7 +21,11 @@ export class NewTrainingComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     // this.exercises = this.db.collection('availableExercises').valueChanges();
-    this.exerciseSubscription = this.trainingService.exercisesChanged.subscribe(exercises => (this.exercises = exercises));
+    this.exerciseSubscription = this.trainingService.exercisesChanged.subscribe(
+      exercises => {
+        this.isLoading = false;
+        this.exercises = exercises; }
+        );
     this.trainingService.fetchAvailableExercise();
 
   }

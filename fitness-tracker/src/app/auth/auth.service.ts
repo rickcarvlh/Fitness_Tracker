@@ -18,7 +18,6 @@ export class AuthService {
   //constructor can be added now
   constructor(private router: Router, private  afAuth: AngularFireAuth,
               private trainingService: TrainingService,
-              private snackBar: MatSnackBar,
               private uiService: UiService) {}
 
   // either true or false
@@ -48,9 +47,7 @@ export class AuthService {
     })
       .catch(error => {
         this.uiService.loadingStateChange.next(false);
-        this.snackBar.open(error.message, null,{
-          duration: 3000
-        });
+        this.uiService.showSnackbar(error.message, null, 3000);
       });
   }
 
@@ -63,9 +60,7 @@ export class AuthService {
     })
       .catch(error => {
         this.uiService.loadingStateChange.next(false);
-        this.snackBar.open(error.message, null, {
-          duration: 3000
-        });
+        this.uiService.showSnackbar(error.message, null, 3000);
       });
 
 
