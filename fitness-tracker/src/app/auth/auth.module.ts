@@ -1,12 +1,10 @@
 import {NgModule} from "@angular/core";
 import {SignupComponent} from "./signup/signup.component";
 import {LoginComponent} from "./login/login.component";
-import {CommonModule} from "@angular/common";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {MaterialModule} from "../material.module";
-import {FlexLayoutModule} from "@angular/flex-layout";
 import {MatDatepickerModule} from "@angular/material";
-import {AngularFireAuth, AngularFireAuthModule} from "@angular/fire/auth";
+import { AngularFireAuthModule} from "@angular/fire/auth";
+import {SharedModule} from "../shared/shared.module";
 
 
 @NgModule({
@@ -15,18 +13,15 @@ import {AngularFireAuth, AngularFireAuthModule} from "@angular/fire/auth";
     LoginComponent,
   ],
   imports: [
-    CommonModule,
-    FormsModule,
     ReactiveFormsModule,
-    MaterialModule,
-    FlexLayoutModule,
     MatDatepickerModule,
     // AngularFireAuth,
-    AngularFireAuthModule
-  ],
-  exports: [
-    FormsModule,
+    AngularFireAuthModule,
+    SharedModule
   ]
+  // exports: [
+  //   FormsModule,
+  // ]
 })
 export class AuthModule {
 
