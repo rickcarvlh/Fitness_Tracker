@@ -19,6 +19,8 @@ import {UiService} from './shared/ui.service';
 import {AuthModule} from "./auth/auth.module";
 import {TrainingModule} from "./training/training.module";
 import {FlexLayoutModule} from "@angular/flex-layout";
+import {StoreModule} from "@ngrx/store";
+import {appReducer} from "./app.reducer";
 
 
 @NgModule({
@@ -37,7 +39,9 @@ import {FlexLayoutModule} from "@angular/flex-layout";
     AngularFireModule.initializeApp(environment.firebase),
     TrainingModule,
     AuthModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    StoreModule.forRoot({ui: appReducer})
+
   ],
   providers: [AuthService, TrainingService, UiService],
   bootstrap: [AppComponent]
