@@ -1,25 +1,29 @@
 import {Action} from "@ngrx/store";
+import {AuthActions, SET_AUTHENTICATED, SET_UNAUTHENTICATED} from "./auth.actions";
 
 
 
 export interface State {
-  isLoading: boolean;
+  isAuthenticated: boolean;
 }
 
+// note we only care if we are authenticated
+
+// note initial state
 const initialState: State = {
-  isLoading: false
+  isAuthenticated: false
 };
 
-export function uiReducer(state = initialState, action: Action) {
+export function authReducer(state = initialState, action: AuthActions) {
 
   switch (action.type) {
-    case START_LOADING:
+    case SET_AUTHENTICATED:
       return {
-        isLoading: true
+        isAuthenticated: true
       };
-    case STOP_LOADING:
+    case SET_UNAUTHENTICATED:
       return {
-        isLoading: false
+        isAuthenticated: false
       };
     default: {
       return state;
@@ -27,4 +31,4 @@ export function uiReducer(state = initialState, action: Action) {
   }
 }
 
-export const getIsLoading = (state: State) => state.isLoading;
+export const getisAuth = (state: State) => state.isAuthenticated;
